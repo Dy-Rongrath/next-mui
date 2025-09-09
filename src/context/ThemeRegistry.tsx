@@ -3,7 +3,7 @@ import React, { createContext, useState, useMemo, useContext } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import CssBaseline from '@mui/material/CssBaseline';
-import { lightTheme, darkTheme } from '@/theme';
+import { lightTheme, darkTheme } from '@/theme/theme';
 
 // Create a context to hold the theme state and toggle function
 const ThemeContext = createContext({
