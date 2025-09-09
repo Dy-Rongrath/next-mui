@@ -65,4 +65,4 @@ You can customize fonts in `theme.ts` or via [`next/font`](https://nextjs.org/do
 
 Deploy easily on [Vercel](https://vercel.com/) or any Node.js hosting platform.
 
-See [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying) for
+See [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
