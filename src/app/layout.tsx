@@ -1,21 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ThemeRegistry from "@/context/ThemeRegistry";
+import Layout from "@/components/layout/Layout";
 
-// Get the base URL from environment variables, with a fallback
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export const metadata: Metadata = {
-  // Use the environment variable for metadataBase
   metadataBase: new URL(siteUrl),
-  
   title: {
     default: "Next.js MUI App",
     template: `%s | Next.js MUI App`,
   },
-  
   description: "A modern web application built with Next.js and Material-UI...",
-  // ... other metadata properties
 };
 
 export default function RootLayout({
@@ -26,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry>
+          <Layout>{children}</Layout>
+        </ThemeRegistry>
       </body>
     </html>
   );
