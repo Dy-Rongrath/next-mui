@@ -12,6 +12,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import MailIcon from '@mui/icons-material/Mail';
 import Toolbar from '@mui/material/Toolbar';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const drawerWidth = 240;
 
@@ -21,18 +23,28 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ mobileOpen, handleDrawerToggle }: SidebarProps) {
+  const pathname = usePathname();
+
+  const navItems = [
+    { text: 'Home', path: '/', icon: <HomeIcon /> },
+    { text: 'About', path: '/about', icon: <InfoIcon /> },
+    { text: 'Contact', path: '/contact', icon: <MailIcon /> },
+  ];
+
   const drawer = (
     <div>
       <Toolbar />
       <Box sx={{ overflow: 'auto' }}>
         <List>
-          {['Home', 'About', 'Contact'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index === 0 ? <HomeIcon /> : index === 1 ? <InfoIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
+          {navItems.map((item) => (
+            <ListItem key={item.text} disablePadding>
+              <ListItemButton
+                component={Link}
+                href={item.path}
+                selected={pathname === item.path}
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
               </ListItemButton>
             </ListItem>
           ))}
