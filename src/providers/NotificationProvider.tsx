@@ -5,15 +5,22 @@ import SnackbarComponent from '../components/common/SnackbarComponent';
 import { AlertProps } from '@mui/material/Alert';
 
 interface NotificationContextType {
-  showNotification: (message: string, severity?: AlertProps['severity']) => void;
+  showNotification: (
+    message: string,
+    severity?: AlertProps['severity']
+  ) => void;
 }
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined
+);
 
 export const useNotification = () => {
   const context = useContext(NotificationContext);
   if (!context) {
-    throw new Error('useNotification must be used within a NotificationProvider');
+    throw new Error(
+      'useNotification must be used within a NotificationProvider'
+    );
   }
   return context;
 };
@@ -23,13 +30,19 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
   const [message, setMessage] = useState('');
   const [severity, setSeverity] = useState<AlertProps['severity']>('success');
 
-  const showNotification = (newMessage: string, newSeverity: AlertProps['severity'] = 'success') => {
+  const showNotification = (
+    newMessage: string,
+    newSeverity: AlertProps['severity'] = 'success'
+  ) => {
     setMessage(newMessage);
     setSeverity(newSeverity);
     setOpen(true);
   };
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -48,4 +61,3 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
     </NotificationContext.Provider>
   );
 };
-

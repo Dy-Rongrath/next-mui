@@ -1,4 +1,3 @@
-// FILE: src/features/dashboard/components/Dashboard.tsx
 'use client';
 
 import React from 'react';

@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useThemeContext } from '../../providers/ThemeProvider';
 import { useLanguage } from '../../providers/LanguageProvider';
+import { useNotificationList } from '../../hooks/useNotificationList';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -23,21 +24,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
+import CheckIcon from '@mui/icons-material/Check';
 
 interface HeaderProps {
   handleDrawerToggle: () => void;
 }
-
-// Mock notification data
-const notifications = [
-  { id: 1, primary: 'New order #1138 received', secondary: '5 minutes ago' },
-  {
-    id: 2,
-    primary: 'Stock for "Espresso Beans" is low',
-    secondary: '1 hour ago',
-  },
-  { id: 3, primary: 'Daily sales report is ready', secondary: 'Yesterday' },
-];
 
 const languageOptions = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
@@ -47,6 +39,8 @@ const languageOptions = [
 export default function Header({ handleDrawerToggle }: HeaderProps) {
   const { mode, toggleTheme } = useThemeContext();
   const { t, changeLanguage, language } = useLanguage();
+  const { notifications, unreadCount, markAsRead, clearAll } =
+    useNotificationList();
 
   const [notificationAnchorEl, setNotificationAnchorEl] =
     React.useState<HTMLButtonElement | null>(null);
@@ -61,6 +55,10 @@ export default function Header({ handleDrawerToggle }: HeaderProps) {
 
   const handleNotificationClose = () => {
     setNotificationAnchorEl(null);
+  };
+
+  const handleMarkOneAsRead = (id: number) => {
+    markAsRead(id);
   };
 
   const handleLanguageMenuOpen = (
@@ -104,10 +102,9 @@ export default function Header({ handleDrawerToggle }: HeaderProps) {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-          {t('coffee_shop_pos')}
+          {t('appTitle')}
         </Typography>
 
-        {/* Language Switcher Button */}
         <Button
           color="inherit"
           onClick={handleLanguageMenuOpen}
@@ -117,7 +114,7 @@ export default function Header({ handleDrawerToggle }: HeaderProps) {
             </Box>
           }
           endIcon={<KeyboardArrowDownIcon />}
-          sx={{ textTransform: 'none', fontSize: '1rem' }}
+          sx={{ textTransform: 'none', fontSize: '1rem', mr: 1 }}
         >
           {currentLanguage.name}
         </Button>
@@ -140,18 +137,16 @@ export default function Header({ handleDrawerToggle }: HeaderProps) {
           ))}
         </Menu>
 
-        {/* Notification Icon */}
         <IconButton
           color="inherit"
           aria-describedby={notificationPopoverId}
           onClick={handleNotificationClick}
         >
-          <Badge badgeContent={notifications.length} color="error">
+          <Badge badgeContent={unreadCount} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
 
-        {/* Theme Toggle Icon */}
         <IconButton sx={{ ml: 1 }} onClick={toggleTheme} color="inherit">
           {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
@@ -161,37 +156,64 @@ export default function Header({ handleDrawerToggle }: HeaderProps) {
           open={isNotificationOpen}
           anchorEl={notificationAnchorEl}
           onClose={handleNotificationClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
-          <List
+          <Box
             sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
           >
-            <ListItem>
-              <ListItemText
-                primary={
-                  <Typography fontWeight="bold">
-                    {t('notifications')}
-                  </Typography>
-                }
-              />
-            </ListItem>
+            <Box
+              sx={{
+                p: 2,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Typography fontWeight="bold">{t('notifications')}</Typography>
+              <Button
+                size="small"
+                onClick={clearAll}
+                disabled={notifications.length === 0}
+              >
+                Clear All
+              </Button>
+            </Box>
             <Divider />
-            {notifications.map((notification) => (
-              <ListItem key={notification.id}>
-                <ListItemText
-                  primary={notification.primary}
-                  secondary={notification.secondary}
-                />
-              </ListItem>
-            ))}
-          </List>
+            <List sx={{ maxHeight: 400, overflow: 'auto' }}>
+              {notifications.length > 0 ? (
+                notifications.map((notification) => (
+                  <ListItem
+                    key={notification.id}
+                    sx={{
+                      bgcolor: notification.read
+                        ? 'action.hover'
+                        : 'transparent',
+                    }}
+                  >
+                    <ListItemText
+                      primary={notification.message}
+                      secondary={notification.timestamp.toLocaleString()}
+                    />
+                    {!notification.read && (
+                      <Tooltip title="Mark as read">
+                        <IconButton
+                          size="small"
+                          onClick={() => handleMarkOneAsRead(notification.id)}
+                        >
+                          <CheckIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </ListItem>
+                ))
+              ) : (
+                <ListItem>
+                  <ListItemText secondary="No new notifications" />
+                </ListItem>
+              )}
+            </List>
+          </Box>
         </Popover>
       </Toolbar>
     </AppBar>
