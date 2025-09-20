@@ -12,6 +12,7 @@ import Toolbar from '@mui/material/Toolbar';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import { useLanguage } from '@/providers/LanguageProvider';
 
 const drawerWidth = 240;
 
@@ -24,6 +25,7 @@ export default function Sidebar({
   mobileOpen,
   handleDrawerToggle,
 }: SidebarProps) {
+  const { t } = useLanguage();
   const [pathname, setPathname] = React.useState('');
 
   React.useEffect(() => {
@@ -33,9 +35,9 @@ export default function Sidebar({
   }, []);
 
   const navItems = [
-    { text: 'Dashboard', path: '/', icon: <DashboardIcon /> },
-    { text: 'Orders', path: '/orders', icon: <ShoppingCartIcon /> },
-    { text: 'Menu', path: '/menu', icon: <MenuBookIcon /> },
+    { text: t('dashboard'), path: '/', icon: <DashboardIcon /> },
+    { text: t('orders'), path: '/orders', icon: <ShoppingCartIcon /> },
+    { text: t('menu'), path: '/menu', icon: <MenuBookIcon /> },
   ];
 
   const drawer = (

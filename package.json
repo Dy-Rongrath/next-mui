@@ -18,9 +18,11 @@
     "@mui/material-pigment-css": "^7.3.2",
     "@mui/x-data-grid": "^8.11.3",
     "@pigment-css/nextjs-plugin": "^0.0.30",
+    "i18next": "^25.5.2",
     "next": "15.5.2",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-i18next": "^15.7.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

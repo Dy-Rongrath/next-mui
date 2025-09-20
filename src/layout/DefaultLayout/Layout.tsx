@@ -7,6 +7,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 
+
 export default function DefaultLayout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
