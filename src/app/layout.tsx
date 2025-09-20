@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ThemeRegistry from "@/context/ThemeRegistry";
-import Layout from "@/components/layout/Layout";
+import ThemeRegistry from "@/providers/ThemeRegistry";
+import Layout from "@/layout/DefaultLayout/Layout";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
