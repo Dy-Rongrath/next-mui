@@ -31,13 +31,17 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ```
 my-app/
-├── app/                # Next.js app directory (pages, layouts, etc.)
-├── components/         # Reusable React components (e.g., ThemeRegistry)
-├── theme.ts            # MUI theme configuration
-├── public/             # Static assets
-├── package.json        # Project dependencies and scripts
-├── tsconfig.json       # TypeScript configuration
-└── README.md           # Project documentation
+├── app/                        # Next.js app directory (routing, layouts, pages)
+│   └── ...                     # Your route files and folders
+├── public/                     # Static assets
+├── src/
+│   ├── components/             # Reusable React components (e.g., ThemeRegistry)
+│   └── theme.ts                # MUI theme configuration
+├── .gitignore                  # Git ignore rules
+├── package.json                # Project dependencies and scripts
+├── tsconfig.json               # TypeScript configuration
+├── README.md                   # Project documentation
+└── ...                         # Other config files
 ```
 
 ## Custom MUI Theme
@@ -48,7 +52,7 @@ See [`src/components/ThemeRegistry.tsx`](src/components/ThemeRegistry.tsx) for d
 ## Font Setup
 
 Roboto is used as the default font.  
-You can customize fonts in `theme.ts` or via [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts).
+You can customize fonts in `src/theme.ts` or via [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts).
 
 ## Code Quality
 
