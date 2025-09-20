@@ -3,7 +3,25 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Order } from '@/types';
-import { Paper, Typography } from '@mui/material';
+import { Paper, Typography, Button, Box } from '@mui/material';
+import { useLanguage } from '@/providers/LanguageProvider';
+
+const initialRows: Order[] = [
+  {
+    id: 'ORD001',
+    customer: 'John Doe',
+    date: new Date().toLocaleDateString(),
+    total: 12.5,
+    status: 'Completed',
+  },
+  {
+    id: 'ORD002',
+    customer: 'Jane Smith',
+    date: new Date().toLocaleDateString(),
+    total: 8.75,
+    status: 'In Progress',
+  },
+];
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'Order ID', width: 150 },
@@ -13,50 +31,39 @@ const columns: GridColDef[] = [
   { field: 'status', headerName: 'Status', width: 160 },
 ];
 
-const rows: Order[] = [
-  {
-    id: 'ORD001',
-    customer: 'John Doe',
-    date: '2024-07-28',
-    total: 12.5,
-    status: 'Completed',
-  },
-  {
-    id: 'ORD002',
-    customer: 'Jane Smith',
-    date: '2024-07-28',
-    total: 8.75,
-    status: 'In Progress',
-  },
-  {
-    id: 'ORD003',
-    customer: 'Mike Johnson',
-    date: '2024-07-27',
-    total: 22.0,
-    status: 'Completed',
-  },
-  {
-    id: 'ORD004',
-    customer: 'Emily Davis',
-    date: '2024-07-27',
-    total: 5.5,
-    status: 'Pending',
-  },
-  {
-    id: 'ORD005',
-    customer: 'Chris Brown',
-    date: '2024-07-26',
-    total: 15.0,
-    status: 'Cancelled',
-  },
-];
-
 export default function OrdersTable() {
+  const [rows, setRows] = React.useState<Order[]>(initialRows);
+  const { t } = useLanguage();
+
+  const handleAddOrder = () => {
+    const newOrderId = `ORD${String(rows.length + 1).padStart(3, '0')}`;
+    const newOrder: Order = {
+      id: newOrderId,
+      customer: 'New Customer',
+      date: new Date().toLocaleDateString(),
+      total: Math.round((Math.random() * 20 + 5) * 100) / 100,
+      status: 'Pending',
+    };
+    setRows((prevRows) => [...prevRows, newOrder]);
+  };
+
   return (
     <Paper style={{ height: 600, width: '100%' }}>
-      <Typography variant="h4" component="h1" sx={{ p: 2 }} gutterBottom>
-        Manage Orders
-      </Typography>
+      <Box
+        sx={{
+          p: 2,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant="h4" component="h1">
+          {t('orders')}
+        </Typography>
+        <Button variant="contained" color="primary" onClick={handleAddOrder}>
+          Add New Order
+        </Button>
+      </Box>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -65,7 +72,7 @@ export default function OrdersTable() {
             paginationModel: { pageSize: 10, page: 0 },
           },
         }}
-        pageSizeOptions={[10]}
+        pageSizeOptions={[10, 20]}
         checkboxSelection
       />
     </Paper>
