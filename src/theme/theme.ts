@@ -8,7 +8,6 @@ const roboto = Roboto({
   display: 'swap',
 });
 
-// Common settings to be shared across all themes
 const commonSettings: ThemeOptions = {
   typography: {
     fontFamily: roboto.style.fontFamily,
@@ -21,26 +20,25 @@ const commonSettings: ThemeOptions = {
     button: { textTransform: 'none', fontWeight: 600 },
   },
   shape: {
-    borderRadius: 8, // A more standard border radius
+    borderRadius: 8,
   },
   components: {
     MuiButton: {
       defaultProps: {
-        disableElevation: true, // Flatter, more modern buttons
+        disableElevation: true,
       },
       styleOverrides: {
         root: {
           borderRadius: 8,
-          padding: '10px 24px', // Consistent button padding
+          padding: '10px 24px',
         },
       },
     },
     MuiAppBar: {
       defaultProps: {
-        elevation: 0, // No shadow for a cleaner look
+        elevation: 0,
       },
       styleOverrides: {
-        // Use a callback to dynamically set styles based on the theme
         colorPrimary: ({ theme }) => ({
           backgroundColor: theme.palette.background.paper,
           color: theme.palette.text.primary,
@@ -65,7 +63,6 @@ const commonSettings: ThemeOptions = {
       },
        styleOverrides: {
         root: ({ theme }) => ({
-           // Match card styling for consistency
            border: `1px solid ${theme.palette.divider}`,
         }),
       },
@@ -73,44 +70,44 @@ const commonSettings: ThemeOptions = {
   },
 };
 
-// Light theme configuration
+// Light theme with a coffee shop palette
 let lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: { 
-        main: '#1976d2',
-        light: '#42a5f5',
-        dark: '#1565c0',
+        main: '#6f4e37', // Coffee Brown
+        light: '#a07d61',
+        dark: '#4d3625',
         contrastText: '#fff' 
     },
     secondary: { 
-        main: '#9c27b0',
-        light: '#ba68c8',
-        dark: '#7b1fa2',
+        main: '#a52a2a', // Muted Red for accents
+        light: '#d35f5f',
+        dark: '#7f0000',
         contrastText: '#fff' 
     },
-    background: { default: '#f5f5f5', paper: '#ffffff' },
+    background: { default: '#f5f5f5', paper: '#ffffff' }, // Off-white background
     text: {
-        primary: '#212121',
-        secondary: '#757575'
+        primary: '#3e2723', // Dark brown text
+        secondary: '#5d4037'
     }
   },
 }, commonSettings);
 
-// Dark theme configuration
+// Dark theme with a coffee shop palette
 let darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: { 
-        main: '#90caf9',
-        light: '#e3f2fd',
-        dark: '#42a5f5',
+        main: '#a07d61', // Lighter coffee for dark mode
+        light: '#d2ad8e',
+        dark: '#7f4f39',
         contrastText: 'rgba(0, 0, 0, 0.87)' 
     },
     secondary: { 
-        main: '#f48fb1',
-        light: '#f8bbd0',
-        dark: '#f06292',
+        main: '#d35f5f', // Lighter red for dark mode
+        light: '#ff9e80',
+        dark: '#c56832',
         contrastText: 'rgba(0, 0, 0, 0.87)' 
     },
     background: { default: '#121212', paper: '#1e1e1e' },
@@ -121,9 +118,7 @@ let darkTheme = createTheme({
   },
 }, commonSettings);
 
-// Make font sizes responsive
 lightTheme = responsiveFontSizes(lightTheme);
 darkTheme = responsiveFontSizes(darkTheme);
 
 export { lightTheme, darkTheme };
-

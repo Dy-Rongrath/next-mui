@@ -9,8 +9,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -22,8 +20,17 @@ interface SidebarProps {
   handleDrawerToggle: () => void;
 }
 
-export default function Sidebar({ mobileOpen, handleDrawerToggle }: SidebarProps) {
-  const pathname = usePathname();
+export default function Sidebar({
+  mobileOpen,
+  handleDrawerToggle,
+}: SidebarProps) {
+  const [pathname, setPathname] = React.useState('');
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setPathname(window.location.pathname);
+    }
+  }, []);
 
   const navItems = [
     { text: 'Dashboard', path: '/', icon: <DashboardIcon /> },
@@ -39,7 +46,7 @@ export default function Sidebar({ mobileOpen, handleDrawerToggle }: SidebarProps
           {navItems.map((item) => (
             <ListItem key={item.text} disablePadding>
               <ListItemButton
-                component={Link}
+                component="a"
                 href={item.path}
                 selected={pathname === item.path}
               >
