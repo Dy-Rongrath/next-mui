@@ -23,7 +23,7 @@ export default function Footer() {
         <Typography variant="body2" color="text.secondary" align="center">
           {'© '}
           {new Date().getFullYear()}{' '}
-          My App. All rights reserved.
+          The Coffee House. All rights reserved.
         </Typography>
       </Container>
     </Box>

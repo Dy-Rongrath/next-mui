@@ -6,7 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useThemeContext } from '@/providers/ThemeRegistry';
+import { useThemeContext } from '../../providers/ThemeRegistry';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
@@ -30,7 +30,7 @@ export default function Header({ handleDrawerToggle }: HeaderProps) {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-          My App
+          Coffee Shop POS
         </Typography>
         <IconButton sx={{ ml: 1 }} onClick={toggleTheme} color="inherit">
           {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
@@ -39,3 +39,4 @@ export default function Header({ handleDrawerToggle }: HeaderProps) {
     </AppBar>
   );
 }
+

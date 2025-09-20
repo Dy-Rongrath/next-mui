@@ -8,12 +8,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
-import MailIcon from '@mui/icons-material/Mail';
 import Toolbar from '@mui/material/Toolbar';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 const drawerWidth = 240;
 
@@ -26,9 +26,9 @@ export default function Sidebar({ mobileOpen, handleDrawerToggle }: SidebarProps
   const pathname = usePathname();
 
   const navItems = [
-    { text: 'Home', path: '/', icon: <HomeIcon /> },
-    { text: 'About', path: '/about', icon: <InfoIcon /> },
-    { text: 'Contact', path: '/contact', icon: <MailIcon /> },
+    { text: 'Dashboard', path: '/', icon: <DashboardIcon /> },
+    { text: 'Orders', path: '/orders', icon: <ShoppingCartIcon /> },
+    { text: 'Menu', path: '/menu', icon: <MenuBookIcon /> },
   ];
 
   const drawer = (

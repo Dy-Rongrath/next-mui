@@ -3,11 +3,11 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Header from './Header';
-import Sidebar from './Sidebar';
-import Footer from './Footer';
+import Header from './Header.jsx';
+import Sidebar from './Sidebar.jsx';
+import Footer from './Footer.jsx';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function DefaultLayout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -31,3 +31,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </Box>
   );
 }
+
